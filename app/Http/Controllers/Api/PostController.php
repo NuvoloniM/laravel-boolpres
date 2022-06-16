@@ -55,7 +55,7 @@ class PostController extends Controller
         // mantengo l'$id come variabile per capire cosa mostrare.
         $post = Post::with('Category', 'tags')->find($id);
 
-        return response()->json( $post );
+        return response()->json( compact('post') );
     }
 
     /**
