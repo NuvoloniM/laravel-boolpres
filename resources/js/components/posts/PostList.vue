@@ -4,6 +4,9 @@
         <Loader v-if="isLoading" />
         <!-- mostro i dati se l'array dei post non è vuoto -->
         <div v-if="posts.length">
+
+        <!-- importo componente delle pagine, gli devo passare i dati ottenuti da axios tramite props -->
+        <Pagination :pagination="pagination"/>
         <!-- ciclo i dati dell'array posts !!ricordarsi :key -->
             <div class="card text-center" v-for="post in posts" :key="post.id">
                 <div class="card-header">
@@ -30,11 +33,13 @@
 <script>
 // importo axios per poter gestire i dati che gli passo tramite controller come se fosse una chiamata ad un api
 import axios from 'axios';
-import Loader from '../Loader.vue'
+import Loader from '../Loader.vue';
+import Pagination from '../Pagination.vue';
 export default {
     name: 'PostList',
     components: {
         Loader,
+        Pagination,
     },
     data(){
         return {
