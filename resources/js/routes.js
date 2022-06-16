@@ -8,6 +8,7 @@ Vue.use(VueRouter)
 // importo i componenti delle pagine a cui farò riferimento sotto nelle rotte
 import HomePage from './components/pages/HomePage.vue';
 import ContactPage from './components/pages/ContactPage.vue';
+import NotFoundPage from './components/pages/NotFoundPage.vue';
 
 // inizializzo il router
 const router = new VueRouter({
@@ -17,6 +18,8 @@ const router = new VueRouter({
     routes: [
         { path: '/', component: HomePage , name: 'home' },
         { path: '/contacts', component: ContactPage , name: 'contacts' },
+        // creiamo una notfound pages routes che si attiverà quando verrà richiamata una pagina non gestita dalle rotte precedenti 
+        { path: '*', component: NotFoundPage, name: 'notFound'}
     ]
 })
 // lo esporto per poterlo richiamare in front.js e in #root
