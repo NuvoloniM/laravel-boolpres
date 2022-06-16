@@ -52,7 +52,10 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        //
+        // mantengo l'$id come variabile per capire cosa mostrare.
+        $post = Post::with('Category', 'tags')->find($id);
+
+        return response()->json( $post );
     }
 
     /**
