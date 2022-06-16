@@ -2035,6 +2035,8 @@ __webpack_require__.r(__webpack_exports__);
     return {
       // mi creo un array vuoto che verrà riempito da axios con la chiamata
       posts: [],
+      // questo sarà l'oggetto con la pagina corrente e l'ultima pagina, dinamici seguendo le richieste di axios =>paginate()
+      pagination: {},
       isLoading: true
     };
   },
@@ -2046,8 +2048,21 @@ __webpack_require__.r(__webpack_exports__);
       // nel get metto la rotta del controller 
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("http://127.0.0.1:8000/api/posts").then(function (res) {
         // riempio l'array vuoto in data con gli elementi presi con axios
-        console.log(res.data.posts);
-        _this.posts = res.data.posts;
+        console.log(res.data.posts); // grazie a js 7 posso destrutturare l'oggetto ottenuto in più variabili 
+        //  => entro nell'oggetto e salvo nella variabile che mi interessa quello che trova
+
+        var _res$data$posts = res.data.posts,
+            data = _res$data$posts.data,
+            current_page = _res$data$posts.current_page,
+            last_page = _res$data$posts.last_page; // this.posts = res.data.posts.data;
+        // => posso salvarmi i valori delle variabili in data
+
+        _this.posts = data; // creo un oggetto chiave valore = ai valore che salvo da axios 
+
+        _this.pagination = {
+          currentPage: current_page,
+          lastPage: last_page
+        };
       }).then(function () {
         // solo una volta caricati tutti i dati dall'api -> modifico la variabile così da far mostrare tutto 
         console.log('terminato il caricamento dei posts');

@@ -40,6 +40,8 @@ export default {
         return {
             // mi creo un array vuoto che verrà riempito da axios con la chiamata
             posts: [],
+            // questo sarà l'oggetto con la pagina corrente e l'ultima pagina, dinamici seguendo le richieste di axios =>paginate()
+            pagination: {},
             isLoading: true,
         }
     },
@@ -51,7 +53,22 @@ export default {
                     .then( (res)=> {
                         // riempio l'array vuoto in data con gli elementi presi con axios
                         console.log(res.data.posts);
-                        this.posts = res.data.posts;
+                        // grazie a js 7 posso destrutturare l'oggetto ottenuto in più variabili 
+                        //  => entro nell'oggetto e salvo nella variabile che mi interessa quello che trova
+                        const {
+                            data,
+                            current_page,
+                            last_page
+                        } = res.data.posts;
+                        // this.posts = res.data.posts.data;
+                        // => posso salvarmi i valori delle variabili in data
+                        this.posts = data;
+                        // creo un oggetto chiave valore = ai valore che salvo da axios 
+                        this.pagination = {
+                            currentPage: current_page,
+                            lastPage: last_page,
+                        }
+
                     }).then(() => {
                         // solo una volta caricati tutti i dati dall'api -> modifico la variabile così da far mostrare tutto 
                         console.log('terminato il caricamento dei posts')
