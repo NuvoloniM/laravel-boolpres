@@ -6,7 +6,9 @@
         <div v-if="posts.length">
 
         <!-- importo componente delle pagine, gli devo passare i dati ottenuti da axios tramite props -->
-        <Pagination :pagination="pagination"/>
+        <!-- dal componente figlio ottengo i dati inerenti alla pagina corrente, mi serve per rendere dinamica la chiamata axios a seconda della pagina  -->
+        <!-- per prendermi i dati richiamo la funzione dell'emit nel figlio = 'funzione a cui mando i parametri' -->
+        <Pagination :pagination="pagination" @on-page-change="getPosts"/>
         <!-- ciclo i dati dell'array posts !!ricordarsi :key -->
             <div class="card text-center" v-for="post in posts" :key="post.id">
                 <div class="card-header">
@@ -55,9 +57,11 @@ export default {
     },
     methods: {
         // richiamo axios per poter leggere ed ottwnere i dati dell'api 
-        getPosts(){
+        // in axios metto il parametro della pagina iniziale, così partirà sempre da 1
+        getPosts(page = 1){
             // nel get metto la rotta del controller 
-            axios.get("http://127.0.0.1:8000/api/posts")
+            // rendo dimanica la chiamata delle pagine, parte da 1 ma dipende dal parametro che ci manda il componente figlio pagination
+            axios.get(`http://127.0.0.1:8000/api/posts?/page=${page}`)
                     .then( (res)=> {
                         // riempio l'array vuoto in data con gli elementi presi con axios
                         console.log(res.data.posts);

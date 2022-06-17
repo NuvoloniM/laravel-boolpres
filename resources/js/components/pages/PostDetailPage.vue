@@ -19,6 +19,7 @@ import axios from 'axios';
             getPost() {
                 // chiamata ad axios con parametro dinamico, tramite show mi passo il singolo id che mi serve 
                 // metodo di route per ottenere il paramentro $route.params -> me lo sonon passato dall'index, dal bottone show
+                // vinee tutto gestito da api.php->postcontroller@show
                 axios.get(`http://127.0.0.1:8000/api/posts/${ this.$route.params.id }`)
                     .then((res) => {
                         console.log(res.data);

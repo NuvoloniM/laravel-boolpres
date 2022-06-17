@@ -2040,6 +2040,23 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Pagination',
   //Salvo i dati che mi passa la tabella "padre" tramite i props
@@ -2151,6 +2168,7 @@ __webpack_require__.r(__webpack_exports__);
 
       // chiamata ad axios con parametro dinamico, tramite show mi passo il singolo id che mi serve 
       // metodo di route per ottenere il paramentro $route.params -> me lo sonon passato dall'index, dal bottone show
+      // vinee tutto gestito da api.php->postcontroller@show
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("http://127.0.0.1:8000/api/posts/".concat(this.$route.params.id)).then(function (res) {
         console.log(res.data); // console.log(data);
 
@@ -2214,6 +2232,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 // importo axios per poter gestire i dati che gli passo tramite controller come se fosse una chiamata ad un api
 
 
@@ -2235,11 +2255,14 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     // richiamo axios per poter leggere ed ottwnere i dati dell'api 
+    // in axios metto il parametro della pagina iniziale, così partirà sempre da 1
     getPosts: function getPosts() {
       var _this = this;
 
+      var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
       // nel get metto la rotta del controller 
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("http://127.0.0.1:8000/api/posts").then(function (res) {
+      // rendo dimanica la chiamata delle pagine, parte da 1 ma dipende dal parametro che ci manda il componente figlio pagination
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("http://127.0.0.1:8000/api/posts?/page=".concat(page)).then(function (res) {
         // riempio l'array vuoto in data con gli elementi presi con axios
         console.log(res.data.posts); // grazie a js 7 posso destrutturare l'oggetto ottenuto in più variabili 
         //  => entro nell'oggetto e salvo nella variabile che mi interessa quello che trova
@@ -2936,44 +2959,76 @@ var render = function () {
       "ul",
       { staticClass: "pagination" },
       [
-        _vm._m(0),
+        _vm.pagination.current_page > 1
+          ? _c(
+              "li",
+              {
+                staticClass: "page-item",
+                on: {
+                  click: function ($event) {
+                    return _vm.$emit(
+                      "on-page-change",
+                      _vm.pagination.current_page - 1
+                    )
+                  },
+                },
+              },
+              [
+                _c("span", { staticClass: "page-link" }, [
+                  _vm._v("\n                Previous\n            "),
+                ]),
+              ]
+            )
+          : _vm._e(),
         _vm._v(" "),
         _vm._l(_vm.pagination.lastPage, function (page) {
-          return _c("li", { key: page, staticClass: "page-item" }, [
-            _c("span", { staticClass: "page-link" }, [
-              _vm._v(" " + _vm._s(page) + " "),
-            ]),
-          ])
+          return _c(
+            "li",
+            {
+              key: page,
+              staticClass: "page-item",
+              attrs: { role: "button" },
+              on: {
+                click: function ($event) {
+                  return _vm.$emit("on-page-change", page)
+                },
+              },
+            },
+            [
+              _c("span", { staticClass: "page-link" }, [
+                _vm._v(" " + _vm._s(page) + " "),
+              ]),
+            ]
+          )
         }),
         _vm._v(" "),
-        _vm._m(1),
+        _vm.pagination.last_page > _vm.pagination.current_page
+          ? _c(
+              "li",
+              {
+                staticClass: "page-item",
+                on: {
+                  click: function ($event) {
+                    return _vm.$emit(
+                      "on-page-change",
+                      _vm.pagination.current_page + 1
+                    )
+                  },
+                },
+              },
+              [
+                _c("span", { staticClass: "page-link" }, [
+                  _vm._v("\n                Next\n            "),
+                ]),
+              ]
+            )
+          : _vm._e(),
       ],
       2
     ),
   ])
 }
-var staticRenderFns = [
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", { staticClass: "page-item" }, [
-      _c("a", { staticClass: "page-link", attrs: { href: "#" } }, [
-        _vm._v("Previous"),
-      ]),
-    ])
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", { staticClass: "page-item" }, [
-      _c("a", { staticClass: "page-link", attrs: { href: "#" } }, [
-        _vm._v("Next"),
-      ]),
-    ])
-  },
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -3124,7 +3179,10 @@ var render = function () {
         ? _c(
             "div",
             [
-              _c("Pagination", { attrs: { pagination: _vm.pagination } }),
+              _c("Pagination", {
+                attrs: { pagination: _vm.pagination },
+                on: { "on-page-change": _vm.getPosts },
+              }),
               _vm._v(" "),
               _vm._l(_vm.posts, function (post) {
                 return _c(
