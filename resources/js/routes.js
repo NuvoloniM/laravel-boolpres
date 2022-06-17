@@ -22,7 +22,7 @@ const router = new VueRouter({
         { path: '/', component: HomePage , name: 'home' },
         { path: '/contacts', component: ContactPage , name: 'contacts' },
         // il path sarà dinamico, dipende dall'id che mi passo come parametro. in vue usavamo ${} in vue-router usiamo :id per renderlo dinamico
-        { path: '/posts/:id', component: PostDetailPage , name: 'post-detail' },
+        { path: '/posts/:slug', component: PostDetailPage , name: 'post-detail' },
         // creiamo una notfound pages routes che si attiverà quando verrà richiamata una pagina non gestita dalle rotte precedenti 
         { path: '*', component: NotFoundPage, name: 'notFound'}
     ]

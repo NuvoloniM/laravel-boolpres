@@ -3231,7 +3231,7 @@ var render = function () {
                             attrs: {
                               to: {
                                 name: "post-detail",
-                                params: { id: post.id },
+                                params: { slug: post.slug },
                               },
                             },
                           },
@@ -19298,7 +19298,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
     name: 'contacts'
   }, // il path sarà dinamico, dipende dall'id che mi passo come parametro. in vue usavamo ${} in vue-router usiamo :id per renderlo dinamico
   {
-    path: '/posts/:id',
+    path: '/posts/:slug',
     component: _components_pages_PostDetailPage_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
     name: 'post-detail'
   }, // creiamo una notfound pages routes che si attiverà quando verrà richiamata una pagina non gestita dalle rotte precedenti 

@@ -53,9 +53,12 @@ class PostController extends Controller
     public function show($id)
     {
         // mantengo l'$id come variabile per capire cosa mostrare.
-        $post = Post::with('Category', 'tags')->find($id);
+        // $post = Post::with('Category', 'tags')->find($id);
+        // uso lo slug come parametro  da mostrare nella uri nella sezione front
+        // non posso usare find ma uso first()-> non gli devo passare parametri dentro erchè li ottiene da where
+        $post = Post::where('slug', $slug)->with(['Category', 'tags'])->first();
 
-        return response()->json( compact('post') );
+        return response()->json( $post);
     }
 
     /**

@@ -24,7 +24,7 @@
                     <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
                     <!-- al posto di a utilizzo il route-link per far gestire tutto al router  -->
                     <!-- oltre al nome indicato nelle routes, posso passarmi dei parametri che mi serviranno per la specifica chiamata di axios -->
-                    <router-link :to="{ name: 'post-detail', params: { id: post.id } }" class="btn btn-primary">View</router-link>
+                    <router-link :to="{ name: 'post-detail', params: { slug: post.slug } }" class="btn btn-primary">View</router-link>
                 </div>
                 <div class="card-footer text-muted">
                     2 days ago

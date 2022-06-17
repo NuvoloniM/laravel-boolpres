@@ -24,5 +24,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::namespace('Api')->group( function(){
     Route::get('/posts', 'PostController@index');
     // rotta per la show, inizialmente mi passo l'id poi mi passerò lo slug così l'utente frontend vede solo lo slug
-    Route::get('/posts/{id}', 'PostController@show');
+    // Route::get('/posts/{id}', 'PostController@show');
+    Route::get('/posts/{slug}', 'PostController@show');
 });
