@@ -2,6 +2,13 @@
     <div>
         <h1>Pagina singola del post: {{ post.title }}</h1>
         <!-- Ulteriori info del post -->
+        <!-- importo alert errore passandogli i determinati props -->
+        <!-- si mostra solo se c'è effettivamente un errore -->
+        <Alert
+        v-if="isError"
+        message="il post non esiste"
+        type="danger"
+        />
     </div>
 </template>
 
@@ -13,6 +20,7 @@ import axios from 'axios';
             return {
                 // creo array vuoto che verrà riempito trmite axios dal singolo post richiamato
                 post: [],
+                isError: false,
             }
         },
         methods: {
@@ -25,6 +33,9 @@ import axios from 'axios';
                         console.log(res.data);
                         // console.log(data);
                         this.post = res.data;
+                    }).catch((err) =>{
+                        console.log(err);
+                        this.isError = true;
                     })
             }
         },

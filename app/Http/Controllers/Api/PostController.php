@@ -57,7 +57,8 @@ class PostController extends Controller
         // uso lo slug come parametro  da mostrare nella uri nella sezione front
         // non posso usare find ma uso first()-> non gli devo passare parametri dentro erchè li ottiene da where
         $post = Post::where('slug', $slug)->with(['Category', 'tags'])->first();
-
+        // ritrona pagina errore se non esiste il post
+        if ( !$post ) return response('Post not found', 404);
         return response()->json( $post);
     }
 

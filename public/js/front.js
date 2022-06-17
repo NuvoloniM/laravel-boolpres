@@ -2153,13 +2153,21 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'PostDetailPage',
   data: function data() {
     return {
       // creo array vuoto che verrà riempito trmite axios dal singolo post richiamato
-      post: []
+      post: [],
+      isError: false
     };
   },
   methods: {
@@ -2173,6 +2181,9 @@ __webpack_require__.r(__webpack_exports__);
         console.log(res.data); // console.log(data);
 
         _this.post = res.data;
+      })["catch"](function (err) {
+        console.log(err);
+        _this.isError = true;
       });
     }
   },
@@ -3144,9 +3155,19 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c("h1", [_vm._v("Pagina singola del post: " + _vm._s(_vm.post.title))]),
-  ])
+  return _c(
+    "div",
+    [
+      _c("h1", [_vm._v("Pagina singola del post: " + _vm._s(_vm.post.title))]),
+      _vm._v(" "),
+      _vm.isError
+        ? _c("Alert", {
+            attrs: { message: "il post non esiste", type: "danger" },
+          })
+        : _vm._e(),
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
