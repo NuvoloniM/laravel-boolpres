@@ -61,7 +61,7 @@ export default {
         getPosts(page = 1){
             // nel get metto la rotta del controller 
             // rendo dimanica la chiamata delle pagine, parte da 1 ma dipende dal parametro che ci manda il componente figlio pagination
-            axios.get(`http://127.0.0.1:8000/api/posts?/page=${page}`)
+            axios.get(`http://127.0.0.1:8000/api/posts?page=${page}`)
                     .then( (res)=> {
                         // riempio l'array vuoto in data con gli elementi presi con axios
                         console.log(res.data.posts);

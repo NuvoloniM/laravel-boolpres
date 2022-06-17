@@ -2262,7 +2262,7 @@ __webpack_require__.r(__webpack_exports__);
       var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
       // nel get metto la rotta del controller 
       // rendo dimanica la chiamata delle pagine, parte da 1 ma dipende dal parametro che ci manda il componente figlio pagination
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("http://127.0.0.1:8000/api/posts?/page=".concat(page)).then(function (res) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("http://127.0.0.1:8000/api/posts?page=".concat(page)).then(function (res) {
         // riempio l'array vuoto in data con gli elementi presi con axios
         console.log(res.data.posts); // grazie a js 7 posso destrutturare l'oggetto ottenuto in più variabili 
         //  => entro nell'oggetto e salvo nella variabile che mi interessa quello che trova
@@ -2959,7 +2959,7 @@ var render = function () {
       "ul",
       { staticClass: "pagination" },
       [
-        _vm.pagination.current_page > 1
+        _vm.pagination.currentPage > 1
           ? _c(
               "li",
               {
@@ -2968,7 +2968,7 @@ var render = function () {
                   click: function ($event) {
                     return _vm.$emit(
                       "on-page-change",
-                      _vm.pagination.current_page - 1
+                      _vm.pagination.currentPage - 1
                     )
                   },
                 },
@@ -3002,7 +3002,7 @@ var render = function () {
           )
         }),
         _vm._v(" "),
-        _vm.pagination.last_page > _vm.pagination.current_page
+        _vm.pagination.lastPage > _vm.pagination.currentPage
           ? _c(
               "li",
               {
@@ -3011,7 +3011,7 @@ var render = function () {
                   click: function ($event) {
                     return _vm.$emit(
                       "on-page-change",
-                      _vm.pagination.current_page + 1
+                      _vm.pagination.currentPage + 1
                     )
                   },
                 },

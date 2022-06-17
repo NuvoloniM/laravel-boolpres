@@ -4,7 +4,7 @@
             <!-- uso $emit per mandare i dati dal figlio al padre. al click si attiva la funzione on-page-change che manda al padre il parametro current - 1 -->
             <!-- sarà il padre che con questo dato cambierà la chiamata axios -->
             <!-- aggiungo if clause -> mostra il previous solo se siamo nella current page 2 o maggiore -->
-            <li v-if="pagination.current_page > 1" class="page-item" @click="$emit('on-page-change', pagination.current_page - 1)">
+            <li v-if="pagination.currentPage > 1" class="page-item" @click="$emit('on-page-change', pagination.currentPage - 1)">
                 <!-- levo h metto span perchè non mi serve un link a cui andare  -->
                 <span class="page-link">
                     Previous
@@ -25,7 +25,7 @@
             </li>
             <!-- stesso discorso del previous, al padre mando il dato current + 1 tramite emit -->
             <!-- if clause -> mostro solo se effettivamente c'è una pagina successiva, cioè non sono nell'ultima pagina  -->
-            <li v-if="pagination.last_page > pagination.current_page" class="page-item" @click="$emit('on-page-change', pagination.current_page + 1)">
+            <li v-if="pagination.lastPage > pagination.currentPage" class="page-item" @click="$emit('on-page-change', pagination.currentPage + 1)">
                 <span class="page-link">
                     Next
                 </span>
